@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('state', 45)->nullable();
             $table->string('zipcode', 255);
             $table->string('country_code', 3);
-            $table->foreignId('customer_id')->refrences('id')->on('customers');
+            $table->foreignId('customer_id')->references('id')->on('customers');
             $table->timestamps();
-            $table->foreign('country_code')->refrences('code')->on('countries');
+            $table->foreign('country_code')->references('code')->on('countries');
         });
     }
 
