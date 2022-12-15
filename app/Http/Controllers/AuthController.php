@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -21,8 +22,8 @@ class AuthController extends Controller
 
             if (!Auth::attempt($credentials, $remember)) {
                 return response([
-                    'message' => 'Email or password is incorrect', 422
-                ]);
+                    'message' => 'Email or password is incorrect'
+                ], 401);
             }
 
             $user = Auth::user();
@@ -31,14 +32,14 @@ class AuthController extends Controller
                Auth::logout(); 
 
                return response([
-                'message' => 'You do not have admin rights', 403
-               ]);
+                'message' => 'You do not have admin rights'
+               ], 403);
             }
 
             $token = $user->createToken('main')->plainTextToken;
 
             return response([
-                'user' => $user,
+                'user' => new UserResource($user),
                 'token' => $token
             ]);
         }
@@ -47,6 +48,10 @@ class AuthController extends Controller
                 $user = Auth::user();
                 $user->currentAccessToken()->delete();
 
-                return response(['', 204]);
+                return response([''], 204);
+            }
+
+        public function getUser  (Request $request) {
+                return $request->user();
             }
 }

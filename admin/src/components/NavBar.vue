@@ -6,7 +6,7 @@
             <Menu as="div" class="relative inline-block text-left">
                     <MenuButton class="flex items-center">
                         <img class="rounded-full w-8" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
-                        <p class="text-sm ml-2">John Smith</p>
+                        <p class="text-sm ml-2">{{ currentUser.name }}</p>
                         <ChevronDownIcon class=" h-5 w-5 text-indigo-200 hover:text-indigo-100" aria-hidden="true" />
                     </MenuButton>
                 <transition enter-active-class="transition duration-100 ease-out"
@@ -26,7 +26,7 @@
                             </button>
                             </MenuItem>
                             <MenuItem v-slot="{ active }">
-                            <button :class="[
+                            <button @click="logout" :class="[
                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                             ]">
@@ -48,8 +48,19 @@
 import { Bars3Icon, UserIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/20/solid'
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import store from '../store'
+import router from '../router/index'
+import { computed } from 'vue';
 
 const emit = defineEmits(['toggle-sidebar'])
+
+const currentUser = computed(() => store.state.user.data)
+
+function logout() {
+    store.dispatch('logout').then(() => {
+        router.push({name: 'login'})
+    })
+}
 </script>
 <style lang="">
     

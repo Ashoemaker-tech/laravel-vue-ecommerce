@@ -13,12 +13,11 @@ axiosClient.interceptors.request.use(config => {
 
 axiosClient.interceptors.response.use(response => {
     return response;
-}, error => {
+  }, error => {
     if (error.response.status === 401) {
-        sessionStorage.removeItem('TOKEN')
-        router.push({name: 'login'})
+      store.commit('setToken', null)
+      router.push({name: 'login'})
     }
     throw error;
-})
-
+  })
 export default axiosClient;
