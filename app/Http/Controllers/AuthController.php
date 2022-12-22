@@ -44,14 +44,5 @@ class AuthController extends Controller
             ]);
         }
 
-        public function logout  () {
-                $user = Auth::user();
-                $user->currentAccessToken()->delete();
-
-                return response([''], 204);
-            }
-
-        public function getUser  (Request $request) {
-                return $request->user();
-            }
+        
 }
