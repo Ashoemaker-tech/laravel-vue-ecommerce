@@ -1,9 +1,10 @@
 <script setup>
-import GuestLayout from '@/Layouts/DashboardLayout.vue';
+import SiteLayout from '@/Layouts/SiteLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
@@ -22,9 +23,10 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <SiteLayout>
         <Head title="Register" />
-
+        <div class="max-w-lg mx-auto my-20 bg-white rounded-lg shadow-xl p-6">    
+        <ApplicationLogo class="block h-14 mb-4 w-auto fill-current text-slate-700 mx-auto"/>
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
@@ -100,5 +102,6 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+        </div>
+    </SiteLayout>
 </template>

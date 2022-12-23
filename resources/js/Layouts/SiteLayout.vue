@@ -52,10 +52,10 @@ const showingNavigationDropdown = ref(false);
                                     </template>
                                 </Dropdown>
                             </div>
-                            <div v-else class="hidden fixed top-0 right-0 px-6 py-4 sm:block">            
-                                <Link :href="route('login')" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</Link>
+                            <div v-else class="hidden sm:block">            
+                                <Link :href="route('login')" class="text-sm text-slate-700 underline">Log in</Link>
 
-                                <Link :href="route('register')" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
+                                <Link :href="route('register')" class="ml-4 text-sm text-slate-700 underline"
                                 >Register</Link>        
                             </div>
 
@@ -95,7 +95,7 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div
+                <div 
                     :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
                     class="sm:hidden"
                 >
@@ -117,7 +117,7 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     </div>
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-400">
+                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-400">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-200">
                                 {{ $page.props.auth.user.name }}
@@ -132,7 +132,12 @@ const showingNavigationDropdown = ref(false);
                             </ResponsiveNavLink>
                         </div>
                     </div>
+                    <div v-else>
+                        <ResponsiveNavLink :href="route('login')"> Login </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('register')">Register</ResponsiveNavLink>
+                    </div>
                 </div>
+                
             </nav>
 
             <!-- Page Heading -->
