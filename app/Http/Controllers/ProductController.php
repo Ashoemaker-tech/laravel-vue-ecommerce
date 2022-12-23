@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductListResource;
 
 class ProductController extends Controller
 {
@@ -17,7 +18,9 @@ class ProductController extends Controller
     public function index()
     {
         //
-       return ProductListResource::collection(Product::query()->paginate(10)); 
+       $products = Product::get(); 
+
+       return Inertia::render('Dashboard/Products', $products);
     }
 
     /**

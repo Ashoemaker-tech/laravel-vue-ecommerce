@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/inertia-vue3';
-import DashboardLayout from '../Layouts/DashboardLayout.vue';
+import DashboardLayout from '../../Layouts/DashboardLayout.vue';
 </script>
 
 <template>
