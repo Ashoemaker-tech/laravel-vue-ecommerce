@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             //
             'title' => fake()->text(),
-            'image' => fake()->imageUrl(),
+            'image' => "http://cdn.shopify.com/s/files/1/0021/7055/2364/products/j-thomas-home-thick-alder-stovetop-cover-cutout-handles-37243439972580.jpg?v=1660092453",
             'description' => fake()->realText(2000),
             'price' => fake()->randomFloat(2, 20, 500),
             'created_at' => now(),

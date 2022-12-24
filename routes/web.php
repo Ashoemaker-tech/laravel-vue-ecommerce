@@ -18,14 +18,22 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('/', function () {
+    $products = Product::get();
+    return Inertia::render('Home', [
+        'products' => $products,
+    ]);
+})->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('dashboard/products', [ProductController::class, 'index'])->name('dashboard.products');
+
 
 Route::middleware('auth')->group(function () {
+    // Authenticated routes will send to login if not authenticated
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard/Dashboard');
+    })->name('dashboard');
+    Route::get('dashboard/products', [ProductController::class, 'index'])->name('dashboard.products');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

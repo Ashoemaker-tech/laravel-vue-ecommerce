@@ -21,7 +21,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
         </div>
   
         <nav class="mt-10">
-          <ResponsiveNavLink
+          <ResponsiveNavLink :href="route('dashboard')"
             class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
             
           >
