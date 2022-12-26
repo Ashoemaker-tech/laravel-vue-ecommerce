@@ -7,7 +7,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 <template>
       <div
         
-        class=" inset-y-0 left-0 z-30 w-64 overflow-y-auto transition-all duration-500 transform bg-gradient-to-b from-slate-900 to-zinc-400 lg:translate-x-0 lg:static lg:inset-0"
+        class=" inset-y-0 left-0 absolute z-30 w-64 transition-all duration-500 transform bg-gradient-to-b from-slate-900 to-zinc-400 lg:translate-x-0 lg:static lg:inset-0"
       >
         <div class="flex items-center justify-center mt-8">
           <Link :href="route('home')">

@@ -1,8 +1,12 @@
 <script setup>
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, usePage } from '@inertiajs/inertia-vue3';
+import { computed } from 'vue'
 import SiteLayout from '../Layouts/SiteLayout.vue'
 import ProductCard from '@/Components/ProductCard.vue';
 
+defineProps({
+  products: computed(() => usePage().props.products)
+})
 
 </script>
 
@@ -35,8 +39,10 @@ style="background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing
 
 <section class="text-gray-800 body-font">
   <div class="container px-5 py-24 mx-auto ">
-    <div v-for="product in $page.props.products" class="flex flex-row">
-    <ProductCard :image="product.image" :title="product.title" :price="product.price" />
+    <div  class="grid grid-cols-12 gap-8">
+    <div v-for="product in products" class="col-span-12 md:col-span-6 lg:col-span-4">
+      <ProductCard :image="product.image" :title="product.title" :price="product.price" />
+    </div>
     </div>
   </div>
 </section>

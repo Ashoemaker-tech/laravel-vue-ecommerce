@@ -1,13 +1,52 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link, usePage, useRemember } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import { ref, watch, computed } from 'vue'
+
+let props = defineProps({
+  filters: {
+    type: Array
+  }
+})
+
+const products = computed(() => usePage().props.value.products.data)
+
+let search = ref('')
+
+watch(search, value => {
+  Inertia.get('/dashboard/products', { search: value}, {
+    preserveState: true,
+    replace: true
+  })
+})
 
 </script>
 
 <template>
+
     <div class="w-full bg-gray-200">
       <div class=" w-full bg-white py-3 rounded-lg shadow-lg px-8 my-4">
         <!-- TODO Make this work -->
-        <input class="rounded-lg border-gray-300" type="text" placeholder="Search products">
+        <div class="relative mx-4 lg:mx-0">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+  
+          <input
+            v-model="search"
+            class="w-42 pl-10 pr-4 text-gray-800 border-gray-200 rounded-md sm:w-96 focus:border-slate-700 focus:ring focus:ring-opacity-30 focus:ring-slate-700"
+            type="text"
+            placeholder="Search products..."
+          />
+        </div>
       </div>
   <table class="table-compact table-fixed lg:table w-full">
     <!-- head -->
@@ -23,7 +62,7 @@ import { Link } from '@inertiajs/inertia-vue3'
     </thead>
     <tbody>
       <!-- row 1 -->
-      <tr v-for="product in $page.props.products.data" :key="product.id" class="bg-gray-100 border-b-2 border-gray-300">
+    <tr v-for="product in products" :key="product.id" class="bg-gray-100 border-b-2 border-gray-300">
         <th>
           <p>{{ product.id }}</p>
         </th>

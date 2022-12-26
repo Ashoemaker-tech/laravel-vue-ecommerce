@@ -3,6 +3,7 @@
 defineProps({
 image: String,
 title: String,
+description: String,
 price: String
 })
 
@@ -18,13 +19,12 @@ price: String
           <p class="mt-1">${{ price }}</p>
         </div>
       </div>  -->
-      <div class="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+      <div class="card card-compact bg-base-100 shadow-xl">
+        <figure><img class="w-full h-1/2" :src="image" alt="product" /></figure>
         <div class="card-body">
-            <h2 class="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-            <button class="btn btn-primary">Buy Now</button>
+            <h2 class="card-title">{{ title }}</h2>
+            <div class="flex justify-end">
+            <span class="">${{ price }}</span>
             </div>
         </div>
       </div>

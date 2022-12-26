@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
+use Illuminate\Support\Facades\Request;
 use App\Http\Resources\ProductListResource;
 
 class ProductController extends Controller
@@ -15,22 +16,47 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+       $products = Product::get()->map(function ($products) {
+            return [
+                'id' => $products->id,
+                'title' => $products->title,
+                'description' => $products->description,
+                'price' => $products->price,
+                'image' => $products->image,
+                'featured' => $products->featured
+            ];
+       });
+    //    TODO filter down to only featured products
+
+        return Inertia::render('Home', [
+            'products' => $products,
+                ]);
+    }
+
     public function index()
     {
-        //
-       $products = Product::paginate(10)->through(function ($products) {
-            return [
+       $products = Product::query()
+                ->when(Request::input('search'), function ($query, $search) {
+                    $query->where('title', 'like', "%{$search}%");
+                })
+                ->paginate(10)
+                ->withQueryString()
+                ->through(fn($products) => [
                 'id' => $products->id,
                 'title' => $products->title,
                 'price' => $products->price,
                 'image' => $products->image,
                 'updated_at' => $products->updated_at,
-            ];
-       }); 
-
+                'featured' => $products->featured
+                ]);
+                 
+                
        return Inertia::render('Dashboard/Products', [
-        'products' => $products
-       ]);
+        'products' => $products,
+        'filters' => Request::only(['search'])
+       ]); 
     }
 
     /**
@@ -50,9 +76,8 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
-    {
-        return new ProductResource($product);
+    public function show() {
+
     }
 
     /**

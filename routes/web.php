@@ -18,14 +18,7 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    $products = Product::get();
-    return Inertia::render('Home', [
-        'products' => $products,
-    ]);
-})->name('home');
-
-
+Route::get('/', [ProductController::class, 'home'])->name('home');
 
 Route::middleware('auth')->group(function () {
     // Authenticated routes will send to login if not authenticated
