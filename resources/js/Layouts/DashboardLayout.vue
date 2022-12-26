@@ -3,6 +3,7 @@ import Sidebar from '../Layouts/Partials/Sidebar.vue';
 import Header from '../Layouts/Partials/Header.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { ref, onMounted, onUnmounted } from 'vue'
+import ToggleButton from './Partials/ToggleButton.vue';
 
 const sidebarOpen = ref(false);
 
@@ -29,7 +30,9 @@ onUnmounted(() => {
     <Sidebar :class="{'-ml-64': !sidebarOpen}" />
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <Header @toggle-sidebar="toggleSidebar" />
+      <Header>
+        <ToggleButton @toggle-sidebar="toggleSidebar" :class="{'ml-60': sidebarOpen}"/>
+      </Header>
 
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="container mx-auto px-6 py-8">

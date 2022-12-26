@@ -65,9 +65,9 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store()
     {
-       return new ProductResource(Product::create($request->validated())); 
+       
     }
 
     /**
@@ -76,8 +76,19 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show() {
+    public function show($id) {
 
+        $product = Product::where('id', $id)->get()->map(fn($product) => [
+            'id' => $product->id,
+            'title' => $product->title,
+            'description' => $product->description,
+            'price' => $product->price,
+            'image' => $product->image,
+    ]);
+
+        return Inertia::render('Product', [
+            'product' => $product,
+        ]);
     }
 
     /**

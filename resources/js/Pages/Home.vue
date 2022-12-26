@@ -1,5 +1,5 @@
 <script setup>
-import { Head, usePage } from '@inertiajs/inertia-vue3';
+import { Head, usePage, Link } from '@inertiajs/inertia-vue3';
 import { computed } from 'vue'
 import SiteLayout from '../Layouts/SiteLayout.vue'
 import ProductCard from '@/Components/ProductCard.vue';
@@ -41,7 +41,7 @@ style="background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing
   <div class="container px-5 py-24 mx-auto ">
     <div  class="grid grid-cols-12 gap-8">
     <div v-for="product in products" class="col-span-12 md:col-span-6 lg:col-span-4">
-      <ProductCard :image="product.image" :title="product.title" :price="product.price" />
+      <Link :href="`/product/${product.id}`"><ProductCard :image="product.image" :title="product.title" :price="product.price" /></Link>
     </div>
     </div>
   </div>

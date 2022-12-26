@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('show');
 
 Route::middleware('auth')->group(function () {
     // Authenticated routes will send to login if not authenticated
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard/Dashboard');
     })->name('dashboard');
     Route::get('dashboard/products', [ProductController::class, 'index'])->name('dashboard.products');
+    Route::post('dashboard/products/add', [ProductController::class, 'store'])->name('dashboard.add');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
