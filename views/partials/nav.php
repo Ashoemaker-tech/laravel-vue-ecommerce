@@ -2,6 +2,7 @@
       <div>
         <a href="/src" class="block pl-5 py-navbar-item"> Logo </a>
       </div>
+      <!-- mobile nav -->
       <div
         class="block fixed z-10 top-0 left-0 bottom-0 height h-full w-[220px] transition-all bg-slate-900 md:hidden"
       >
@@ -209,6 +210,7 @@
           </li>
         </ul>
       </div>
+      <!-- /mobile nav -->
       <nav class="hidden md:block">
         <ul class="grid grid-flow-col">
           <li>
