@@ -1,3 +1,3 @@
-# E-commerce website template files built with tailwindcss
+# E-commerce website built with material tailwind & vanilla php
 
 
